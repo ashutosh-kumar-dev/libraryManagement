@@ -49,7 +49,7 @@ export const updateBook = async (id, book) => {
 
 export const deleteBook = async (id) => {
   try {
-    return await axios.delete(`${API_BASE_URL}/${id}`);
+    return await axios.delete(`${import.meta.env.VITE_API_BASE_URL}/book/${id}`);
   } catch (error) {
     console.error("Error deleting book:", error);
     return null;
