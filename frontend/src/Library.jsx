@@ -36,9 +36,26 @@ export default function Library() {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchedBook, setSearchedBook] = useState(null);
   const [loadingSearch, setLoadingSearch] = useState(false);
+  const [isActive, setIsActive] = useState(false);
+
+
+  const fetchBackend = async () => {
+    try {
+      await getAllBooks();
+      setIsActive(true);
+    } catch (error) {
+      setIsActive(false);
+      console.log("Error is this :", error);
+    }
+  };
 
   useEffect(() => {
     fetchBooks();
+
+    fetchBackend();
+    const interval = setInterval(fetchBackend, 20000);
+    return () => clearInterval(interval);
+
   }, []);
 
   const fetchBooks = async () => {
@@ -134,6 +151,8 @@ export default function Library() {
   return (
     <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", height: "100vh", width: "100vw", paddingTop: "50px" }}>
       
+      <div style={{ display: "flex", alignItems: "center", gap: "10px", margin: "10px" }}><button style={{ height: "20px", width: "20px", border: "2px solid", borderRadius: "50%", backgroundColor: isActive ? "green" : "red" }}></button><p>Backend Active</p>
+      </div>      
         <Box
           sx={{
             display: "flex",
