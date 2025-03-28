@@ -92,6 +92,7 @@ export default function Library() {
 
   const handleDelete = async (id) => {
     try {
+      console.log("Deleting book with ID:", id);
       await deleteBook(id);
       fetchBooks();
     } catch (error) {
